@@ -1,3 +1,4 @@
 .venv
 tutorial.py
 tutorial.kv
+__pycache__
