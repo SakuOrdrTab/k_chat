@@ -10,9 +10,6 @@ from kivy.uix.boxlayout import BoxLayout
 
 from src.phi2_api import Phi2_api
 
-# Assuming you will use this later
-# from phi2_api import Phi2_api
-
 class MainWindow(BoxLayout):
     def __init__(self, **kwargs):
         super(MainWindow, self).__init__(**kwargs)
