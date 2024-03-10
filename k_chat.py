@@ -14,8 +14,14 @@ from src.phi2_api import Phi2_api
 # from phi2_api import Phi2_api
 
 class MainWindow(BoxLayout):
+    def __init__(self, **kwargs):
+        super(MainWindow, self).__init__(**kwargs)
+        self.phi2_api = Phi2_api()  # Initialize the Phi-2 API
+
     def prompt_entered(self, instance):
-        self.ids.output_label.text = instance.text.upper()
+        # self.ids.output_label.text = instance.text.upper()
+        response = self.phi2_api.get_answer(instance.text)
+        self.ids.output_label.text = response
 
 class ChatApp(App):
     def build(self):
@@ -23,5 +29,4 @@ class ChatApp(App):
 
 if __name__=="__main__":
     print(kivy.__version__)
-    phi2 = Phi2_api()  # Assuming this is for future use
     ChatApp().run()
