@@ -1,0 +1,12 @@
+<MainWindow>:
+    orientation: 'vertical'
+    TextInput:
+        id: prompt_textinput
+        size_hint_y: 0.15
+        font_size: 15
+        multiline: False
+        on_text_validate: root.prompt_entered(self)
+    Label:
+        id: output_label
+        text: "This will have text"
+        font_size: 15
