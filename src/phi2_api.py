@@ -1,3 +1,6 @@
+'''Microsoft's Phi-2 small LLM model API for chat applications'''
+
+import context_memory
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import re
@@ -7,7 +10,7 @@ class Phi2_api():
     def __init__(self):
         torch.set_default_device("cuda")
         # Introduce rudimentary context memory. Currently the context does not shrink, so the prompts to the model get big very soon. The list structure should be made into a queue
-        self._context_memory = ""
+        self._context_memory = context_memory.Context_memory(max_size=1024)
         # init MS phi-2"
         self.model = AutoModelForCausalLM.from_pretrained("microsoft/phi-2", torch_dtype="auto", trust_remote_code=True)
         self.tokenizer = AutoTokenizer.from_pretrained("microsoft/phi-2", trust_remote_code=True)
@@ -15,9 +18,12 @@ class Phi2_api():
     def wrap_prompt(self, prompt : str, include_context_memory : bool = True) -> str:
         # MS Phi-2 expects text generation to be wrapped with "Instruct:"
         # In fact, pure chat would require different wrapping
-        final_prompt = "Instruct: Write a response as a chat bot to this:\n###\n"
-        if include_context_memory and self._context_memory != "":
-            final_prompt += "The conversation history is:\n" + self._context_memory + "\n"
+        final_prompt = ""
+        if include_context_memory:
+            final_prompt += "Chat history:\n" + self._context_memory.get_context_memory() + "\n"
+
+        final_prompt += "\nInstruct: Write a response as a chat bot to this:\n###\n"
+        
         final_prompt += prompt + "\n###\nOutput:"
         return final_prompt
 
@@ -58,7 +64,7 @@ class Phi2_api():
         
         # Strip model wrapping text and add to context memory
         cleaned_text = self.clean_response_text(best_generation)
-        self._context_memory += "user: " + prompt + "\nchatbot: " + cleaned_text + "\n"
+        self._context_memory.append_chat_lines(user_str=prompt, answer_str=cleaned_text)
         return cleaned_text
 
 
