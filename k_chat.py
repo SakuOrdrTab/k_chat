@@ -18,8 +18,9 @@ class MainWindow(BoxLayout):
 
     def prompt_entered(self, instance):
         # self.ids.output_label.text = instance.text.upper()
-        response = self.phi2_api.get_answer(instance.text)
+        response = self.phi2_api.get_answer(instance.text, raw_answer=True)
         self.ids.output_label.text += response
+        instance.text = ""
 
 class ChatApp(App):
     def build(self):

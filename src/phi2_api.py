@@ -25,10 +25,15 @@ class Phi2_api():
             # Just return the whole model prediction
             return output
 
-    def get_answer(self, prompt : str) -> str:
+    def get_answer(self, prompt : str, raw_answer : bool = False) -> str:
         inputs = self.tokenizer(self.wrap_prompt(self._context_memory + prompt), return_tensors="pt", return_attention_mask=False)
-        outputs = self.model.generate(**inputs, max_new_tokens=200)
+        outputs = self.model.generate(**inputs, max_new_tokens=200, pad_token_id=self.tokenizer.eos_token_id)
 
+        # If raw answer is wanted:
+        if raw_answer:
+            return self.tokenizer.batch_decode(outputs)[0]
+            
+        
         # Strip model wrapping text and add to context memory
         text = self.clean_response_text(self.tokenizer.batch_decode(outputs)[0])
         self._context_memory += prompt + text
