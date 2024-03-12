@@ -7,6 +7,7 @@ from kivy.uix.label import Label
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.textinput import TextInput
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.scrollview import ScrollView
 
 from src.phi2_api import Phi2_api
 
@@ -18,7 +19,7 @@ class MainWindow(BoxLayout):
     def prompt_entered(self, instance):
         # self.ids.output_label.text = instance.text.upper()
         response = self.phi2_api.get_answer(instance.text)
-        self.ids.output_label.text = response
+        self.ids.output_label.text += response
 
 class ChatApp(App):
     def build(self):

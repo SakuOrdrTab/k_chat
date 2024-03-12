@@ -3,10 +3,15 @@
     TextInput:
         id: prompt_textinput
         size_hint_y: 0.15
-        font_size: 15
+        font_size: 30
         multiline: False
         on_text_validate: root.prompt_entered(self)
-    Label:
-        id: output_label
-        text: "This will have text"
-        font_size: 15
+    ScrollView:
+#    do_scroll_x: False
+        Label:
+            id: output_label
+            font_size: 30
+            text_size: self.width, None
+            size_hint_y: None
+            height: self.texture_size[1]
+            text: "This will have text"
