@@ -10,15 +10,16 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.scrollview import ScrollView
 
 from phi2_api import Phi2_api
+from chatgpt35_api import Chatgpt35_api
 
 class MainWindow(BoxLayout):
     def __init__(self, **kwargs):
         super(MainWindow, self).__init__(**kwargs)
-        self.phi2_api = Phi2_api()  # Initialize the Phi-2 API
+        self.llm = Chatgpt35_api()  # Initialize the Phi-2 API
 
     def prompt_entered(self, instance):
         # self.ids.output_label.text = instance.text.upper()
-        response = self.phi2_api.get_answer(instance.text, raw_answer=False)
+        response = self.llm.get_answer(instance.text, raw_answer=False)
         self.ids.output_label.text += response + "\n"
         instance.text = ""
 
