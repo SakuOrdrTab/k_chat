@@ -1,6 +1,6 @@
 '''Microsoft's Phi-2 small LLM model API for chat applications'''
 
-from . import context_memory
+import context_memory
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import re

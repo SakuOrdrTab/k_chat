@@ -9,7 +9,7 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.scrollview import ScrollView
 
-from src.phi2_api import Phi2_api
+from phi2_api import Phi2_api
 
 class MainWindow(BoxLayout):
     def __init__(self, **kwargs):
