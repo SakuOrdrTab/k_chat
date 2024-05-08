@@ -15,7 +15,7 @@ from chatgpt35_api import Chatgpt35_api
 class MainWindow(BoxLayout):
     def __init__(self, **kwargs):
         super(MainWindow, self).__init__(**kwargs)
-        self.llm = Chatgpt35_api()  # Initialize the Phi-2 API
+        self.llm = Phi2_api()  # Initialize the Phi-2 API
 
     def prompt_entered(self, instance):
         # self.ids.output_label.text = instance.text.upper()
