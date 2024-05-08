@@ -4,6 +4,8 @@ A small project to see, if mobile phones can run the smaller LLM's. I implemente
 
 ChatGPT Turbo 3.5 expects your API_KEY in the environment variables.
 
+I also added api for Vicuna-18b-uncencored model, but that has extremely difficult dependancies, and the current requirements do not support the model. It is omitted from the main script.
+
 ## Installation
 
 The requirements for all APIs are in the 'requirements.txt'. Create a venv, install dependancies and run. Nowadays Kivy seems to be much easier to install, I had success installing it normally with pip. However, the torch and other DL dependancies are specific to different systems, and you cannot rely them to be installed correctly from the 'requirements.txt'.
